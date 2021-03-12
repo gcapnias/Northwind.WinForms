@@ -66,8 +66,7 @@ namespace Northwind.WinForms
         {
             if (categoriesDataGridView.CurrentRow != null && categoriesDataGridView.CurrentRow.Index > -1)
             {
-                DataGridView dataGridView = sender as DataGridView;
-                CategoryVM model = dataGridView.Rows[categoriesDataGridView.CurrentRow.Index].DataBoundItem as CategoryVM;
+                CategoryVM model = categoriesDataGridView.Rows[categoriesDataGridView.CurrentRow.Index].DataBoundItem as CategoryVM;
 
                 using (frmCategoryForm f = new frmCategoryForm(model.CategoryID))
                 {
@@ -82,8 +81,7 @@ namespace Northwind.WinForms
         {
             if (categoriesDataGridView.CurrentRow != null && categoriesDataGridView.CurrentRow.Index > -1)
             {
-                DataGridView dataGridView = sender as DataGridView;
-                CategoryVM model = dataGridView.Rows[categoriesDataGridView.CurrentRow.Index].DataBoundItem as CategoryVM;
+                CategoryVM model = categoriesDataGridView.Rows[categoriesDataGridView.CurrentRow.Index].DataBoundItem as CategoryVM;
 
                 if (MessageBox.Show("Are you sure?", "Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
@@ -96,7 +94,16 @@ namespace Northwind.WinForms
 
         private void categoriesContextMenuStripOnOpening(object sender, CancelEventArgs e)
         {
-
+            if (categoriesDataGridView.CurrentRow != null && categoriesDataGridView.CurrentRow.Index > -1)
+            {
+                deleteCategoryToolStripMenuItem.Enabled = true;
+                editCategoryToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                deleteCategoryToolStripMenuItem.Enabled = false;
+                editCategoryToolStripMenuItem.Enabled = false;
+            }
         }
     }
 }
